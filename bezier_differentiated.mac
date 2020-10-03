@@ -1,0 +1,83 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/bezier_curve_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, 
+which can be found in the LICENSE file.
+
+*/
+
+load("bezier")$
+
+define(
+    g(u, v),
+    bezier_function_2a(
+        matrix(
+            [ 4, 2, 3, 5 ],
+            [ 5, 3, 2, 4 ],
+            [ 2, 5, 4, 3 ],
+            [ 3, 4, 5, 2 ]
+        ),
+        u, v
+    )
+)$
+
+define(der_u_g(u, v), diff(g(u, v), u))$
+
+define(der_v_g(u, v), diff(g(u, v), v))$
+
+define(der2_u_g(u, v), diff(g(u, v), u, 2))$
+
+define(der2_v_g(u, v), diff(g(u, v), v, 2))$
+
+define(der_u_der_v_g(u, v), diff(diff(g(u, v), u), v))$
+
+define(der_v_der_u_g(u, v), diff(diff(g(u, v), v), u))$
+
+expand(g(u, v));
+
+expand(der_u_g(u, v));
+
+expand(der_v_g(u, v));
+
+expand(der2_u_g(u, v));
+
+expand(der2_v_g(u, v));
+
+expand(der_u_der_v_g(u, v));
+
+expand(der_v_der_u_g(u, v));
+
+define(
+    f(s, t),
+    bezier_function_2a(
+        matrix(
+            [ a_11, a_12, a_13, a_14 ],
+            [ a_21, a_22, a_23, a_24 ],
+            [ a_31, a_32, a_33, a_34 ]
+        ),
+        s, t
+    )
+)$
+
+
+expand(f(s, t));
+
+expand(f(0, 0));
+
+expand(f(0, 1));
+
+expand(f(1, 0));
+
+expand(f(1, 1));
+
+expand(f(u, 0));
+
+expand(f(u, 1));
+
+expand(f(0, v));
+
+expand(f(1, v));
+

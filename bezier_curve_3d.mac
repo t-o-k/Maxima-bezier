@@ -1,0 +1,48 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/bezier_curve_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, 
+which can be found in the LICENSE file.
+
+*/
+
+load("draw")$
+
+load("bezier")$
+
+weights_x_1a: matrix([ +0, +2, +6, +5 ])$
+
+weights_y_1a: matrix([ +2, -1, +6, +0 ])$
+
+weights_z_1a: matrix([ +1, -3, +2, +0 ])$
+
+define(
+    curve_x(s),
+    bezier_function_1a(weights_x_1a, s)
+)$
+
+expand(curve_x(s));
+
+define(
+    curve_y(s),
+    bezier_function_1a(weights_y_1a, s)
+)$
+
+expand(curve_y(s));
+
+define(
+    curve_z(s),
+    bezier_function_1a(weights_z_1a, s)
+)$
+
+expand(curve_z(s));
+
+plot3d(
+    [ curve_x(s), curve_y(s), curve_z(s) ],
+    [ s, 0, 1 ],
+    [ t, 0, 1 ]
+);
+

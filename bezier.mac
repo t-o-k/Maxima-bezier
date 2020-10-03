@@ -25,7 +25,7 @@ basis_functions_2a(deg_u, deg_v, u, v) :=
    )
 ;
 
-bezier_function_1a(weights) :=
+bezier_function_1a(weights, s) :=
     block(
         [ m_size, size_s, s_fns, s_one ],
         m_size: matrix_size(weights),
@@ -36,7 +36,7 @@ bezier_function_1a(weights) :=
    )
 ;
 
-bezier_function_2a(weights) :=
+bezier_function_2a(weights, u, v) :=
     block(
         [ m_size, size_u, size_v, uv_fn, u_one, v_ones ],
         m_size: matrix_size(weights),

@@ -66,15 +66,15 @@ weighted_basis_functions_2a(w, u, v) :=
     )
 ;
 
-bezier_function_1a(w, s) :=
+bezier_function_1a(p, s) :=
     matrix_sum_1a(
-        weighted_basis_functions_1a(w, s)
+        weighted_basis_functions_1a(p, s)
     )
 ;
 
-bezier_function_2a(w, u, v) :=
+bezier_function_2a(p, u, v) :=
     matrix_sum_2a(
-        weighted_basis_functions_2a(w, u, v)
+        weighted_basis_functions_2a(p, u, v)
     )
 ;
 

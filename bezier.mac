@@ -38,7 +38,7 @@ bezier_function_1a(weights, s) :=
 
 bezier_function_2a(weights, u, v) :=
     block(
-        [ m_size, size_u, size_v, uv_fn, u_one, v_ones ],
+        [ m_size, size_u, size_v, uv_fn, u_one, v_one ],
         m_size: matrix_size(weights),
         size_u: m_size[2],
         size_v: m_size[1],

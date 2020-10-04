@@ -4,8 +4,7 @@ https://github.com/t-o-k/Maxima-bezier/bezier_surface_3d.mac
 
 Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
 
-Use of this source code is governed by the GNU Lesser General Public License version 3, 
-which can be found in the LICENSE file.
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
 
 */
 
@@ -13,7 +12,7 @@ load("draw")$
 
 load("bezier")$
 
-weights_x_2a:
+points_x:
     matrix(
         [ +0.0, +1.0, 2.0, +3.0 ],
         [ +0.0, +1.0, 2.0, +4.0 ],
@@ -22,7 +21,7 @@ weights_x_2a:
     )
 $
 
-weights_y_2a:
+points_y:
     matrix(
         [ +0.0, +0.0, +1.0, +0.0 ],
         [ +1.0, +1.0, +2.0, +1.0 ],
@@ -31,7 +30,7 @@ weights_y_2a:
     )
 $
 
-weights_z_2a:
+points_z:
     matrix(
         [ +2.0, +0.0, +0.0, -3.0 ],
         [ -2.0, -3.0, -2.0, +3.0 ],
@@ -40,28 +39,19 @@ weights_z_2a:
     )
 $
 
-define(
-    surface_x(u, v),
-    bezier_function_2a(weights_x_2a, u, v)
-)$
+define(surface_x(u, v), bezier_function_2a(points_x, u, v))$
+
+define(surface_y(u, v), bezier_function_2a(points_y, u, v))$
+
+define(surface_z(u, v), bezier_function_2a(points_z, u, v))$
 
 expand(surface_x(u, v));
 
-define(
-    surface_y(u, v),
-    bezier_function_2a(weights_y_2a, u, v)
-)$
-
 expand(surface_y(u, v));
-
-define(
-    surface_z(u, v),
-    bezier_function_2a(weights_z_2a, u, v)
-)$
 
 expand(surface_z(u, v));
 
-plot3d(
+wxplot3d(
     [
         surface_x(u, v),
         surface_y(u, v),
@@ -70,4 +60,3 @@ plot3d(
     [ u, 0, 1 ],
     [ v, 0, 1 ]
 );
-

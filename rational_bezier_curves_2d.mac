@@ -1,8 +1,12 @@
-/* https://github.com/t-o-k/Maxima-bezier/rational_bezier_curves_2d.wxmx
+/*
+
+https://github.com/t-o-k/Maxima-bezier/rational_bezier_curves_2d.mac
 
 Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
 
-Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file. */
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
 
 load("draw")$
 
@@ -56,5 +60,3 @@ curve_4: [ parametric, f4_x(s), f4_y(s), [ s, 0, 1 ] ]$
 
 plot2d([ curve_1, curve_2, curve_3, curve_4 ]);
 /* Note that since the aspect ratio is not 1 the circle appears as an ellipse. */
-
-

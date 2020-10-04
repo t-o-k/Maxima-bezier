@@ -51,7 +51,7 @@ expand(surface_y(u, v));
 
 expand(surface_z(u, v));
 
-wxplot3d(
+plot3d(
     [
         surface_x(u, v),
         surface_y(u, v),

@@ -10,6 +10,28 @@ Use of this source code is governed by the GNU Lesser General Public License ver
 
 load(bernstein);
 
+matrix_sum_1a(m) :=
+    block(
+        [ size_m, size_s, s_ones ],
+        size_m: matrix_size(m),
+        size_s: size_m[2],
+        s_ones: matrix(makelist(1, i, 1, size_s)),
+        m.transpose(s_ones)
+    )
+;
+
+matrix_sum_2a(m) :=
+    block(
+        [ size_m, size_u, size_v, u_ones, v_ones ],
+        size_m: matrix_size(m),
+        size_u: size_m[2],
+        size_v: size_m[1],
+        u_ones: matrix(makelist(1, i, 1, size_u)),
+        v_ones: matrix(makelist(1, i, 1, size_v)),
+        v_ones.m.transpose(u_ones)
+    )
+;
+
 basis_functions_1a(deg_s, s) :=
     matrix(
        makelist(bernstein_poly(i, deg_s, s), i, 0, deg_s)
@@ -25,26 +47,34 @@ basis_functions_2a(deg_u, deg_v, u, v) :=
    )
 ;
 
-bezier_function_1a(weights, s) :=
+weighted_basis_functions_1a(w, s) :=
     block(
-        [ m_size, size_s, s_fns, s_one ],
-        m_size: matrix_size(weights),
-        size_s: m_size[2],
-        s_fns(s) := basis_functions_1a(size_s - 1, s),
-        s_one: matrix(makelist(1, i, 1, size_s)),
-        (weights*s_fns(s)).transpose(s_one)
+        [ size_w, deg_s ],
+        size_w: matrix_size(w),
+        deg_s: size_w[2] - 1,
+        w*basis_functions_1a(deg_s, s)
    )
 ;
 
-bezier_function_2a(weights, u, v) :=
+weighted_basis_functions_2a(w, u, v) :=
     block(
-        [ m_size, size_u, size_v, uv_fn, u_one, v_one ],
-        m_size: matrix_size(weights),
-        size_u: m_size[2],
-        size_v: m_size[1],
-        uv_fns(u, v) := basis_functions_2a(size_u - 1, size_v - 1, u, v),
-        u_one: matrix(makelist(1, i, 1, size_u)),
-        v_one: matrix(makelist(1, i, 1, size_v)),
-        v_one.(weights*uv_fns(u, v)).transpose(u_one)
+        [ size_w, deg_u, deg_v ],
+        size_w: matrix_size(w),
+        deg_u: size_w[2] - 1,
+        deg_v: size_w[1] - 1,
+        w*basis_functions_2a(deg_u, deg_v, u, v)
     )
 ;
+
+bezier_function_1a(w, s) :=
+    matrix_sum_1a(
+        weighted_basis_functions_1a(w, s)
+    )
+;
+
+bezier_function_2a(w, u, v) :=
+    matrix_sum_2a(
+        weighted_basis_functions_2a(w, u, v)
+    )
+;
+

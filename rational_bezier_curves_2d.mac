@@ -58,5 +58,5 @@ curve_3: [ parametric, f3_x(s), f3_y(s), [ s, 0, 1 ] ]$
 
 curve_4: [ parametric, f4_x(s), f4_y(s), [ s, 0, 1 ] ]$
 
-plot2d([ curve_1, curve_2, curve_3, curve_4 ]);
-/* Note that since the aspect ratio is not 1 the circle appears as an ellipse. */
+plot2d([ curve_1, curve_2, curve_3, curve_4 ], same_xy);
+

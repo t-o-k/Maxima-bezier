@@ -5,6 +5,8 @@ Maxima library for working with Bezier functions
 
 ![Maxima 2D rational Bezier curves](maxima_rational_bezier_curves_2d.png)
 
+![Maxima 3D rational Bezier surface](maxima_rational_bezier_surface_2d.png)
+
 
 ### Homepage of Maxima
 

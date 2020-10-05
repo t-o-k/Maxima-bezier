@@ -1,0 +1,65 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/rational_bezier_surface_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
+
+load("draw")$
+
+load("bezier")$
+
+tau: 2*%pi;
+
+angle: tau/4;
+
+w: matrix([ 1.0, cos(angle/2), 1.0 ]);
+
+weights: transpose(w).w;
+
+/*
+The 9 points; <x, y, z> in the control grid:
+
+[ <3, 2, 1>, <5, 2, 1>, <5, 4, 1> ]
+[ <3, 2, 2>, <5, 2, 2>, <5, 4, 2> ]
+[ <3, 3, 2>, <4, 3, 2>, <4, 4, 2> ]
+
+This will create a surface that is 1/8 of the surface of a torus with major radius 2 and minor radius 1.
+*/
+
+points_x:
+    matrix(
+        [ 3, 5, 5 ],
+        [ 3, 5, 5 ],
+        [ 3, 4, 4 ]
+)$
+
+points_y:
+    matrix(
+        [ 2, 2, 4 ],
+        [ 2, 2, 4 ],
+        [ 3, 3, 4 ]
+)$
+
+points_z:
+    matrix(
+        [ 1, 1, 1 ],
+        [ 2, 2, 2 ],
+        [ 2, 2, 2 ]
+)$
+
+define(f_x(u, v), rational_bezier_function_2a(points_x, weights, u, v));
+
+define(f_y(u, v), rational_bezier_function_2a(points_y, weights, u, v));
+
+define(f_z(u, v), rational_bezier_function_2a(points_z, weights, u, v));
+
+plot3d(
+    [ f_x(u, v), f_y(u, v), f_z(u, v) ],
+    [ u, 0, 1 ],
+    [ v, 0, 1 ],
+    same_xyz
+);

@@ -18,46 +18,68 @@ tau: 2*%pi;
 
 angle: tau/4;
 
-w: matrix([ 1.0, cos(angle/2), 1.0 ]);
+w: matrix([ 1, cos(angle/2), 1 ]);
 
 weights: transpose(w).w;
 
 /*
 The 9 points; <x, y, z> in the control grid:
 
-[ <3, 2, 1>, <5, 2, 1>, <5, 4, 1> ]
-[ <3, 2, 2>, <5, 2, 2>, <5, 4, 2> ]
-[ <3, 3, 2>, <4, 3, 2>, <4, 4, 2> ]
+< 0, +Rmaj+Rmin,     0>   <+Rmaj+Rmin, +Rmaj+Rmin,     0>   <+Rmaj+Rmin, 0,     0>
+< 0, +Rmaj+Rmin, +Rmin>   <+Rmaj+Rmin, +Rmaj+Rmin, +Rmin>   <+Rmaj+Rmin, 0, +Rmin>
+< 0, +Rmaj     , +Rmin>   <+Rmaj     , +Rmaj     , +Rmin>   <+Rmaj     , 0, +Rmin>
 
-This will create a surface that is 1/16 of the surface of a torus with major radius 2 and minor radius 1.
+This will create a surface that is 1/16 of the surface of a torus, or 1/8 of the surface of a sphere if Rmaj is 0.
 */
 
 points_x:
     matrix(
-        [ 3, 5, 5 ],
-        [ 3, 5, 5 ],
-        [ 3, 4, 4 ]
-);
+        [ 0, +Rmaj+Rmin, +Rmaj+Rmin ],
+        [ 0, +Rmaj+Rmin, +Rmaj+Rmin ],
+        [ 0, +Rmaj     , +Rmaj      ]
+    )
+;
 
 points_y:
     matrix(
-        [ 2, 2, 4 ],
-        [ 2, 2, 4 ],
-        [ 3, 3, 4 ]
-);
+        [ +Rmaj+Rmin, +Rmaj+Rmin, 0 ],
+        [ +Rmaj+Rmin, +Rmaj+Rmin, 0 ],
+        [ +Rmaj     , +Rmaj     , 0 ]
+    )
+;
 
 points_z:
     matrix(
-        [ 1, 1, 1 ],
-        [ 2, 2, 2 ],
-        [ 2, 2, 2 ]
-);
+        [     0,     0,     0 ],
+        [ +Rmin, +Rmin, +Rmin ],
+        [ +Rmin, +Rmin, +Rmin ]
+    )
+;
 
 define(f_x(u, v), rational_bezier_function_2a(points_x, weights, u, v));
 
 define(f_y(u, v), rational_bezier_function_2a(points_y, weights, u, v));
 
 define(f_z(u, v), rational_bezier_function_2a(points_z, weights, u, v));
+
+Rmaj: 0;
+Rmin: 1;
+
+f_x(u, v);
+
+f_y(u, v);
+
+f_z(u, v);
+
+plot3d(
+    [ f_x(u, v), f_y(u, v), f_z(u, v) ],
+    [ u, 0, 1 ],
+    [ v, 0, 1 ],
+    same_xyz
+);+
+
+Rmaj: 2;
+Rmin: 1;
 
 plot3d(
     [ f_x(u, v), f_y(u, v), f_z(u, v) ],

@@ -16,40 +16,32 @@ load("bezier");
 
 tau: 2*%pi;
 
-angle: tau/4/2;  /* No. of parts is 4 */
+angle: tau/4;  /* No. of parts is 4 */
 
-weights: matrix([ 1, cos(angle), 1 ]);
+weights: matrix([ 1, cos(angle/2), 1 ]);
 
-points1_x: matrix([ 3, 5, 5 ]);
+points1_x: matrix([  0,  r,  r ]);
+points1_y: matrix([ -r, -r,  0 ]);
 
-points1_y: matrix([ 2, 2, 4 ]);
+points2_x: matrix([  r,  r,  0 ]);
+points2_y: matrix([  0,  r,  r ]);
 
-points2_x: matrix([ 5, 5, 3 ]);
+points3_x: matrix([  0, -r, -r ]);
+points3_y: matrix([  r,  r,  0 ]);
 
-points2_y: matrix([ 4, 6, 6 ]);
-
-points3_x: matrix([ 3, 1, 1 ]);
-
-points3_y: matrix([ 6, 6, 4 ]);
-
-points4_x: matrix([ 1, 1, 3 ]);
-
-points4_y: matrix([ 4, 2, 2 ]);
+points4_x: matrix([ -r, -r,  0 ]);
+points4_y: matrix([  0, -r, -r ]);
 
 define(f1_x(s), rational_bezier_function_1a(points1_x, weights, s));
-
 define(f1_y(s), rational_bezier_function_1a(points1_y, weights, s));
 
 define(f2_x(s), rational_bezier_function_1a(points2_x, weights, s));
-
 define(f2_y(s), rational_bezier_function_1a(points2_y, weights, s));
 
 define(f3_x(s), rational_bezier_function_1a(points3_x, weights, s));
-
 define(f3_y(s), rational_bezier_function_1a(points3_y, weights, s));
 
 define(f4_x(s), rational_bezier_function_1a(points4_x, weights, s));
-
 define(f4_y(s), rational_bezier_function_1a(points4_y, weights, s));
 
 curve_1: [ parametric, f1_x(s), f1_y(s), [ s, 0, 1 ] ];  /* fun1 */
@@ -60,4 +52,7 @@ curve_3: [ parametric, f3_x(s), f3_y(s), [ s, 0, 1 ] ];  /* fun3 */
 
 curve_4: [ parametric, f4_x(s), f4_y(s), [ s, 0, 1 ] ];  /* fun4 */
 
+r: 2;
+
 plot2d([ curve_1, curve_2, curve_3, curve_4 ], same_xy);
+

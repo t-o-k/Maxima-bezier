@@ -8,42 +8,44 @@ Use of this source code is governed by the GNU Lesser General Public License ver
 
 */
 
-load("draw")$
+kill(all);
 
-load("bezier")$
+load("draw");
+
+load("bezier");
 
 points_x:
     matrix(
-        [ +0.0, +1.0, 2.0, +3.0 ],
-        [ +0.0, +1.0, 2.0, +4.0 ],
-        [ +0.0, +1.0, 2.0, +2.5 ],
-        [ +0.0, +1.0, 2.0, +3.0 ]
+        [  0.0,  1.0,  2.0,  3.0 ],
+        [  0.0,  1.0,  2.0,  4.0 ],
+        [  0.0,  1.0,  2.0,  2.5 ],
+        [  0.0,  1.0,  2.0,  3.0 ]
     )
-$
+;
 
 points_y:
     matrix(
-        [ +0.0, +0.0, +1.0, +0.0 ],
-        [ +1.0, +1.0, +2.0, +1.0 ],
-        [ +2.0, +2.0, +3.0, +2.0 ],
-        [ +3.0, +3.0, +5.0, +3.0 ]
+        [  0.0,  0.0,  1.0,  0.0 ],
+        [  1.0,  1.0,  2.0,  1.0 ],
+        [  2.0,  2.0,  3.0,  2.0 ],
+        [  3.0,  3.0,  5.0,  3.0 ]
     )
-$
+;
 
 points_z:
     matrix(
-        [ +2.0, +0.0, +0.0, -3.0 ],
-        [ -2.0, -3.0, -2.0, +3.0 ],
-        [ +0.0, -4.0, +0.0, +2.0 ],
-        [ +2.0, +0.0, +0.0, -3.0 ]
+        [  2.0,  0.0,  0.0, -3.0 ],
+        [ -2.0, -3.0, -2.0,  3.0 ],
+        [  0.0, -4.0,  0.0,  2.0 ],
+        [  2.0,  0.0,  0.0, -3.0 ]
     )
-$
+;
 
-define(surface_x(u, v), bezier_function_2a(points_x, u, v))$
+define(surface_x(u, v), bezier_function_2a(points_x, u, v));
 
-define(surface_y(u, v), bezier_function_2a(points_y, u, v))$
+define(surface_y(u, v), bezier_function_2a(points_y, u, v));
 
-define(surface_z(u, v), bezier_function_2a(points_z, u, v))$
+define(surface_z(u, v), bezier_function_2a(points_z, u, v));
 
 expand(surface_x(u, v));
 

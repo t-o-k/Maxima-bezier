@@ -8,21 +8,23 @@ Use of this source code is governed by the GNU Lesser General Public License ver
 
 */
 
-load("draw")$
+kill(all);
 
-load("bezier")$
+load("draw");
 
-points_x: matrix([ +0, +2, +6, +5 ])$
+load("bezier");
 
-points_y: matrix([ +2, -1, +6, +0 ])$
+points_x: matrix([  0,  2,  6,  5 ]);
 
-points_z: matrix([ +1, -3, +2, +0 ])$
+points_y: matrix([  2, -1,  6,  0 ]);
 
-define(curve_x(s), bezier_function_1a(points_x, s))$
+points_z: matrix([  1, -3,  2,  0 ]);
 
-define(curve_y(s), bezier_function_1a(points_y, s))$
+define(curve_x(s), bezier_function_1a(points_x, s));
 
-define(curve_z(s), bezier_function_1a(points_z, s))$
+define(curve_y(s), bezier_function_1a(points_y, s));
+
+define(curve_z(s), bezier_function_1a(points_z, s));
 
 expand(curve_x(s));
 
@@ -39,4 +41,3 @@ plot3d(
     [ s, 0, 1 ],
     [ t, 0, 1 ]
 );
-

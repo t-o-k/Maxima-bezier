@@ -93,4 +93,3 @@ rational_bezier_function_2a(p, w, u, v) :=
         matrix_sum_2a(p*wb)/matrix_sum_2a(wb)
     )
 ;
-

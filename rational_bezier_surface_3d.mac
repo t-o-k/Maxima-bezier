@@ -8,9 +8,11 @@ Use of this source code is governed by the GNU Lesser General Public License ver
 
 */
 
-load("draw")$
+kill(all);
 
-load("bezier")$
+load("draw");
+
+load("bezier");
 
 tau: 2*%pi;
 
@@ -27,7 +29,7 @@ The 9 points; <x, y, z> in the control grid:
 [ <3, 2, 2>, <5, 2, 2>, <5, 4, 2> ]
 [ <3, 3, 2>, <4, 3, 2>, <4, 4, 2> ]
 
-This will create a surface that is 1/8 of the surface of a torus with major radius 2 and minor radius 1.
+This will create a surface that is 1/16 of the surface of a torus with major radius 2 and minor radius 1.
 */
 
 points_x:
@@ -35,21 +37,21 @@ points_x:
         [ 3, 5, 5 ],
         [ 3, 5, 5 ],
         [ 3, 4, 4 ]
-)$
+);
 
 points_y:
     matrix(
         [ 2, 2, 4 ],
         [ 2, 2, 4 ],
         [ 3, 3, 4 ]
-)$
+);
 
 points_z:
     matrix(
         [ 1, 1, 1 ],
         [ 2, 2, 2 ],
         [ 2, 2, 2 ]
-)$
+);
 
 define(f_x(u, v), rational_bezier_function_2a(points_x, weights, u, v));
 

@@ -1,5 +1,5 @@
 # Maxima-bezier
-Maxima library for working with Bezier functions
+Maxima library for working with Bezier functions, also rational ones
 
 ![Maxima 3D Bezier surface](maxima_bezier_surface_3d.png)
 
@@ -10,7 +10,7 @@ Maxima library for working with Bezier functions
 
 ### Homepage of Maxima
 
-http://maxima.sourceforge.net/
+http://maxima.sourceforge.net
 
 Maxima is a computer algebra system that is open source.
 

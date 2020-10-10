@@ -6,53 +6,86 @@ Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
 
 Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
 
+
+Resources:
+
+"Drawing CircleswithRational Quadratic Bezier Curves"
+https://ctan.uib.no/macros/latex/contrib/lapdf/rcircle.pdf
+
+"Graphics with MAXIMA"
+http://www.austromath.at/daten/maxima/zusatz/Graphics_with_Maxima.pdf
+
 */
+
 
 kill(all);
 
 load("draw");
-
 load("bezier");
 
 tau: 2*%pi;
 
-angle: tau/4;  /* No. of parts is 4 */
+no_of_segments: 3;
 
-weights: matrix([ 1, cos(angle/2), 1 ]);
+angle: tau/no_of_segments/2;
 
-points1_x: matrix([  0,  r,  r ]);
-points1_y: matrix([ -r, -r,  0 ]);
+r2: r1/cos(angle);
 
-points2_x: matrix([  r,  r,  0 ]);
-points2_y: matrix([  0,  r,  r ]);
+points_evn_x: r1*[ cos(0*angle), cos(2*angle), cos(4*angle) ];
+points_evn_y: r1*[ sin(0*angle), sin(2*angle), sin(4*angle) ];
 
-points3_x: matrix([  0, -r, -r ]);
-points3_y: matrix([  r,  r,  0 ]);
+points_odd_x: r2*[ cos(1*angle), cos(3*angle), cos(5*angle) ];
+points_odd_y: r2*[ sin(1*angle), sin(3*angle), sin(5*angle) ];
 
-points4_x: matrix([ -r, -r,  0 ]);
-points4_y: matrix([  0, -r, -r ]);
+points1_x: [ points_evn_x[1], points_odd_x[1], points_evn_x[2] ];
+points1_y: [ points_evn_y[1], points_odd_y[1], points_evn_y[2] ];
 
-define(f1_x(s), rational_bezier_function_1a(points1_x, weights, s));
-define(f1_y(s), rational_bezier_function_1a(points1_y, weights, s));
+points2_x: [ points_evn_x[2], points_odd_x[2], points_evn_x[3] ];
+points2_y: [ points_evn_y[2], points_odd_y[2], points_evn_y[3] ];
 
-define(f2_x(s), rational_bezier_function_1a(points2_x, weights, s));
-define(f2_y(s), rational_bezier_function_1a(points2_y, weights, s));
+points3_x: [ points_evn_x[3], points_odd_x[3], points_evn_x[1] ];
+points3_y: [ points_evn_y[3], points_odd_y[3], points_evn_y[1] ];
 
-define(f3_x(s), rational_bezier_function_1a(points3_x, weights, s));
-define(f3_y(s), rational_bezier_function_1a(points3_y, weights, s));
+weights: matrix([ 1, cos(angle), 1 ]);
 
-define(f4_x(s), rational_bezier_function_1a(points4_x, weights, s));
-define(f4_y(s), rational_bezier_function_1a(points4_y, weights, s));
+define(f1_x(s), rational_bezier_function_1a(matrix(points1_x), weights, s));
+define(f1_y(s), rational_bezier_function_1a(matrix(points1_y), weights, s));
 
-curve_1: [ parametric, f1_x(s), f1_y(s), [ s, 0, 1 ] ];  /* fun1 */
+define(f2_x(s), rational_bezier_function_1a(matrix(points2_x), weights, s));
+define(f2_y(s), rational_bezier_function_1a(matrix(points2_y), weights, s));
 
-curve_2: [ parametric, f2_x(s), f2_y(s), [ s, 0, 1 ] ];  /* fun2 */
+define(f3_x(s), rational_bezier_function_1a(matrix(points3_x), weights, s));
+define(f3_y(s), rational_bezier_function_1a(matrix(points3_y), weights, s));
 
-curve_3: [ parametric, f3_x(s), f3_y(s), [ s, 0, 1 ] ];  /* fun3 */
+r1: 2;
 
-curve_4: [ parametric, f4_x(s), f4_y(s), [ s, 0, 1 ] ];  /* fun4 */
-
-r: 2;
-
-plot2d([ curve_1, curve_2, curve_3, curve_4 ], same_xy);
-
+draw2d(
+    title = "Circle made with 3 rational Bezier curves",
+    proportional_axes = xy,
+    xrange = [ -6, +5 ],
+    yrange = [ -5, +5 ],
+    line_width = 4,
+    color = red,
+    parametric(f1_x(s), f1_y(s), s, 0, 1),
+    color = green,
+    parametric(f2_x(s), f2_y(s), s, 0, 1),
+    color = blue,
+    parametric(f3_x(s), f3_y(s), s, 0, 1),
+    line_width = 2,
+    line_type = dashes,
+    point_type = none,
+    points_joined = true,
+    color = red,
+	points(''points1_x, ''points1_y),
+    color = green,
+	points(''points2_x, ''points2_y),
+    color = blue,
+	points(''points3_x, ''points3_y),
+    point_size = 2,
+    point_type = filled_circle,
+    points_joined = false,
+    color = black,
+    points(''points_evn_x, ''points_evn_y),
+    color = gray,
+    points(''points_odd_x, ''points_odd_y)
+);

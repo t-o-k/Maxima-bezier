@@ -31,11 +31,11 @@ angle: tau/no_of_segments/2;
 
 r2: r1/cos(angle);
 
-points_evn_x: r1*[ cos(0*angle), cos(2*angle), cos(4*angle) ];
-points_evn_y: r1*[ sin(0*angle), sin(2*angle), sin(4*angle) ];
+points_evn_x: r1*cos(angle*[ 0, 2, 4 ]);
+points_evn_y: r1*sin(angle*[ 0, 2, 4 ]);
 
-points_odd_x: r2*[ cos(1*angle), cos(3*angle), cos(5*angle) ];
-points_odd_y: r2*[ sin(1*angle), sin(3*angle), sin(5*angle) ];
+points_odd_x: r2*cos(angle*[ 1, 3, 5 ]);
+points_odd_y: r2*sin(angle*[ 1, 3, 5 ]);
 
 points1_x: [ points_evn_x[1], points_odd_x[1], points_evn_x[2] ];
 points1_y: [ points_evn_y[1], points_odd_y[1], points_evn_y[2] ];

@@ -1,0 +1,145 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/rational_bezier_surface_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
+
+
+kill(all);
+
+load("draw");
+load("bezier");
+
+tau: 2*%pi;
+
+angle: tau/4;
+
+w: matrix([ 1, cos(angle/2), 1 ]);
+
+weights: transpose(w).w;
+
+
+maj_x: matrix([ 0, 1, 1 ], [ 0, 1, 1 ], [ 0, 1, 1 ]);
+min_x: matrix([ 0, 1, 1 ], [ 0, 1, 1 ], [ 0, 0, 0 ]);
+
+maj_y: matrix([ 1, 1, 0 ], [ 1, 1, 0 ], [ 1, 1, 0 ]);
+min_y: matrix([ 1, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 0 ]);
+
+min_z: matrix([ 0, 0, 0 ], [ 1, 1, 1 ], [ 1, 1, 1 ]);
+
+
+define(f01_x(u, v), rational_bezier_function_2a(+r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f01_y(u, v), rational_bezier_function_2a(+r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f01_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f02_x(u, v), rational_bezier_function_2a(+r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f02_y(u, v), rational_bezier_function_2a(+r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f02_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+define(f03_x(u, v), rational_bezier_function_2a(+r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f03_y(u, v), rational_bezier_function_2a(+r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f03_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f04_x(u, v), rational_bezier_function_2a(+r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f04_y(u, v), rational_bezier_function_2a(+r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f04_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+
+define(f05_x(u, v), rational_bezier_function_2a(-r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f05_y(u, v), rational_bezier_function_2a(+r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f05_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f06_x(u, v), rational_bezier_function_2a(-r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f06_y(u, v), rational_bezier_function_2a(+r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f06_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+define(f07_x(u, v), rational_bezier_function_2a(-r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f07_y(u, v), rational_bezier_function_2a(+r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f07_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f08_x(u, v), rational_bezier_function_2a(-r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f08_y(u, v), rational_bezier_function_2a(+r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f08_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+
+define(f09_x(u, v), rational_bezier_function_2a(-r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f09_y(u, v), rational_bezier_function_2a(-r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f09_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f10_x(u, v), rational_bezier_function_2a(-r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f10_y(u, v), rational_bezier_function_2a(-r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f10_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+define(f11_x(u, v), rational_bezier_function_2a(-r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f11_y(u, v), rational_bezier_function_2a(-r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f11_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f12_x(u, v), rational_bezier_function_2a(-r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f12_y(u, v), rational_bezier_function_2a(-r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f12_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+
+define(f13_x(u, v), rational_bezier_function_2a(+r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f13_y(u, v), rational_bezier_function_2a(-r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f13_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f14_x(u, v), rational_bezier_function_2a(+r_maj*maj_x +r_min*min_x, weights, u, v));
+define(f14_y(u, v), rational_bezier_function_2a(-r_maj*maj_y -r_min*min_y, weights, u, v));
+define(f14_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+define(f15_x(u, v), rational_bezier_function_2a(+r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f15_y(u, v), rational_bezier_function_2a(-r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f15_z(u, v), rational_bezier_function_2a(             +r_min*min_z, weights, u, v));
+
+define(f16_x(u, v), rational_bezier_function_2a(+r_maj*maj_x -r_min*min_x, weights, u, v));
+define(f16_y(u, v), rational_bezier_function_2a(-r_maj*maj_y +r_min*min_y, weights, u, v));
+define(f16_z(u, v), rational_bezier_function_2a(             -r_min*min_z, weights, u, v));
+
+
+r_maj: 3;
+r_min: 1;
+
+u_0: 0;
+u_1: 1;
+
+v_0: 0;
+v_1: 1;
+
+/*
+u_0: u_0 + 0.01;
+u_1: u_1 - 0.01;
+
+v_0: v_0 + 0.04;
+v_1: v_1 - 0.04;
+*/
+
+draw3d(
+    title = "Torus made with 16 rational Bezier surfaces",
+    proportional_axes = xyz,
+    colorbox = false,
+    xu_grid = 20,
+    yv_grid = 20,
+    view = [ 65, 40 ],
+    enhanced3d = true,
+    surface_hide = true,
+    parametric_surface(f01_x(u, v), f01_y(u, v), f01_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f02_x(u, v), f02_y(u, v), f02_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f03_x(u, v), f03_y(u, v), f03_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f04_x(u, v), f04_y(u, v), f04_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f05_x(u, v), f05_y(u, v), f05_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f06_x(u, v), f06_y(u, v), f06_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f07_x(u, v), f07_y(u, v), f07_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f08_x(u, v), f08_y(u, v), f08_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f09_x(u, v), f09_y(u, v), f09_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f10_x(u, v), f10_y(u, v), f10_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f11_x(u, v), f11_y(u, v), f11_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f12_x(u, v), f12_y(u, v), f12_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f13_x(u, v), f13_y(u, v), f13_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f14_x(u, v), f14_y(u, v), f14_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f15_x(u, v), f15_y(u, v), f15_z(u, v), u, u_0, u_1, v, v_0, v_1),
+    parametric_surface(f16_x(u, v), f16_y(u, v), f16_z(u, v), u, u_0, u_1, v, v_0, v_1)
+);

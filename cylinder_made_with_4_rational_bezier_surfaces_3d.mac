@@ -1,0 +1,145 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/cylinder_made_with_4_rational_bezier_surfaces_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
+
+kill(all);
+
+load("draw");
+load("bezier");
+
+tau: 2*%pi;
+
+no_of_sections: 4;
+
+angle: tau/no_of_sections/2;
+
+ww: transpose(matrix([  1,  1,  1 ]));
+
+weights: ww.matrix([  1,  cos(angle),  1 ]);
+
+rr: transpose(matrix([  r_1,  r_2,  r_3 ]));
+
+points1_x: rr.matrix(r_a*[  0,  1,  1 ]);
+points1_y: rr.matrix(r_b*[ -1, -1,  0 ]);
+
+points2_x: rr.matrix(r_a*[  1,  1,  0 ]);
+points2_y: rr.matrix(r_b*[  0,  1,  1 ]);
+
+points3_x: rr.matrix(r_a*[  0, -1, -1 ]);
+points3_y: rr.matrix(r_b*[  1,  1,  0 ]);
+
+points4_x: rr.matrix(r_a*[ -1, -1,  0 ]);
+points4_y: rr.matrix(r_b*[  0, -1, -1 ]);
+
+hh: transpose(matrix(h*[ -1,  0,  1 ]/2));
+
+points__z: hh.matrix([  1,  1,  1 ]);
+
+define(f1_x(u, v), rational_bezier_function_2a(points1_x, weights, u, v));
+define(f1_y(u, v), rational_bezier_function_2a(points1_y, weights, u, v));
+
+define(f2_x(u, v), rational_bezier_function_2a(points2_x, weights, u, v));
+define(f2_y(u, v), rational_bezier_function_2a(points2_y, weights, u, v));
+
+define(f3_x(u, v), rational_bezier_function_2a(points3_x, weights, u, v));
+define(f3_y(u, v), rational_bezier_function_2a(points3_y, weights, u, v));
+
+define(f4_x(u, v), rational_bezier_function_2a(points4_x, weights, u, v));
+define(f4_y(u, v), rational_bezier_function_2a(points4_y, weights, u, v));
+
+define(f__z(u, v), rational_bezier_function_2a(points__z, weights, u, v));
+
+s1: parametric_surface(f1_x(u, v), f1_y(u, v), f__z(u, v), u, u0, u1, v, v0, v1);
+s2: parametric_surface(f2_x(u, v), f2_y(u, v), f__z(u, v), u, u0, u1, v, v0, v1);
+s3: parametric_surface(f3_x(u, v), f3_y(u, v), f__z(u, v), u, u0, u1, v, v0, v1);
+s4: parametric_surface(f4_x(u, v), f4_y(u, v), f__z(u, v), u, u0, u1, v, v0, v1);
+
+h: 1.5;
+
+r_a: 1;
+r_b: 1;
+
+r_1: 1;
+r_2: 1;
+r_3: 1;
+
+u0: 0;
+u1: 1;
+
+v0: 0;
+v1: 1;
+
+u0: u0 + 0.04;
+u1: u1 - 0.04;
+
+draw3d(
+    title = "Cylinder made with 4 rational Bezier surfaces",
+    proportional_axes = xyz,
+    colorbox = false,
+    xu_grid = 20,
+    yv_grid = 20,
+    view = [ 60, 30 ],
+    wired_surface = true,
+    color = gray,
+    enhanced3d = [ -6/3, x, y, z ],
+    ''s1,
+    enhanced3d = [ -2/3, x, y, z ],
+    ''s2,
+    enhanced3d = [ +2/3, x, y, z ],
+    ''s3,
+    enhanced3d = [ +6/3, x, y, z ],
+    ''s4
+);
+
+h: 2;
+
+r_a: 1;
+r_b: 2;
+
+draw3d(
+    title = "Elliptic cylinder made with 4 rational Bezier surfaces",
+    proportional_axes = xyz,
+    colorbox = false,
+    xu_grid = 20,
+    yv_grid = 20,
+    view = [ 60, 35 ],
+    wired_surface = true,
+    color = gray,
+    enhanced3d = [ -6/3, x, y, z ],
+    ''s1,
+    enhanced3d = [ -2/3, x, y, z ],
+    ''s2,
+    enhanced3d = [ +2/3, x, y, z ],
+    ''s3,
+    enhanced3d = [ +6/3, x, y, z ],
+    ''s4
+);
+
+r_1: 1;
+r_2: 0;
+r_3: 1;
+
+draw3d(
+    title = "Tube made with 4 rational Bezier surfaces",
+    proportional_axes = xyz,
+    colorbox = false,
+    xu_grid = 20,
+    yv_grid = 20,
+    view = [ 60, 45 ],
+    wired_surface = true,
+    color = gray,
+    enhanced3d = [ -6/3, x, y, z ],
+    ''s1,
+    enhanced3d = [ -2/3, x, y, z ],
+    ''s2,
+    enhanced3d = [ +2/3, x, y, z ],
+    ''s3,
+    enhanced3d = [ +6/3, x, y, z ],
+    ''s4
+);

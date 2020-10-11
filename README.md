@@ -9,6 +9,8 @@ Maxima library for working with Bezier functions, also rational ones
 
 ![Maxima 3D rational Bezier surface - Part of torus](maxima_rational_bezier_surface_3d_torus.png)
 
+![Maxima 3D cylinder made with 4 rational Bezier surfaces](maxima_cylinder_made_with_4_rational_bezier_surfaces_3d.png)
+
 ![Maxima 3D torus made with 16 rational Bezier surfaces](maxima_torus_made_with_16_rational_bezier_surfaces_3d.png)
 
 

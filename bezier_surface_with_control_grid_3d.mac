@@ -1,0 +1,105 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/bezier_surface_with_control_grid_3d.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
+
+kill(all);
+
+load("draw");
+load("bezier");
+
+combine_xyz(xx, yy, zz) := map(lambda([ x, y, z ], [ x, y, z ]), xx, yy, zz);
+
+points2a_x:
+    [
+        [  0.0,  1.0,  2.0,  3.0 ],
+        [  0.0,  1.0,  2.0,  4.0 ],
+        [  0.0,  1.0,  2.0,  2.5 ],
+        [  0.0,  1.0,  2.0,  3.0 ]
+    ]
+;
+
+points2a_y:
+    [
+        [  0.0,  0.0,  1.0,  0.0 ],
+        [  1.0,  1.0,  2.0,  1.0 ],
+        [  2.0,  2.0,  3.0,  2.0 ],
+        [  3.0,  3.0,  5.0,  3.0 ]
+    ]
+;
+
+points2a_z:
+    [
+        [  2.0,  0.0,  0.0, -3.0 ],
+        [ -2.0, -3.0, -2.0,  3.0 ],
+        [  0.0, -4.0,  0.0,  2.0 ],
+        [  2.0,  0.0,  0.0, -3.0 ]
+    ]
+;
+
+p_x: apply(matrix, points2a_x);
+p_y: apply(matrix, points2a_y);
+p_z: apply(matrix, points2a_z);
+
+define(s_x(u, v), bezier_function_2a(p_x, u, v));
+define(s_y(u, v), bezier_function_2a(p_y, u, v));
+define(s_z(u, v), bezier_function_2a(p_z, u, v));
+
+expand(s_x(u, v));
+
+expand(s_y(u, v));
+
+expand(s_z(u, v));
+
+surface:
+    parametric_surface(
+        s_x(u, v),
+        s_y(u, v),
+        s_z(u, v),
+        u, 0, 1,
+        v, 0, 1
+    )
+;
+
+points2a_xyz:
+    map(
+        combine_xyz,
+        points2a_x,
+        points2a_y,
+        points2a_z
+    )
+;
+control_grid: apply(mesh, points2a_xyz);
+
+points1a_xyz:
+    combine_xyz(
+        flatten(points2a_x),
+        flatten(points2a_y),
+        flatten(points2a_z)
+    )
+;
+control_points: points(points1a_xyz);
+
+draw3d(
+    title = "Bezier surface with control grid",
+    proportional_axes = xyz,
+    xu_grid = 20,
+    yv_grid = 20,
+    view = [ 6, 331 ],
+    color = black,
+    line_width = 1,
+    wired_surface = true,
+    surface,
+    color = blue,
+    line_width = 2,
+    control_grid,
+    color = red,
+    point_type = filled_circle,
+    point_size = 1,
+    control_points
+);

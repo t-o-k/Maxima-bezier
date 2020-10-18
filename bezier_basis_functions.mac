@@ -48,7 +48,6 @@ set_draw_defaults(
     xlabel = "u",
     ylabel = "v",
     zlabel = "",
-    color = blue,
     grid = true,
     color = gray,
     wired_surface = true,

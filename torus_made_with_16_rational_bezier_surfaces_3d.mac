@@ -1,6 +1,6 @@
 /*
 
-https://github.com/t-o-k/Maxima-bezier/rational_bezier_surface_3d.mac
+https://github.com/t-o-k/Maxima-bezier/torus_made_with_16_rational_bezier_surfaces_3d.mac
 
 Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
 
@@ -16,9 +16,9 @@ load("bezier");
 
 tau: 2*%pi;
 
-angle: tau/4;
+angle: tau/4/2;
 
-w: matrix([ 1, cos(angle/2), 1 ]);
+w: matrix([ 1, cos(angle), 1 ]);
 
 weights: transpose(w).w;
 

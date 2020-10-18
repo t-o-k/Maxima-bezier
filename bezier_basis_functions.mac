@@ -1,0 +1,104 @@
+/*
+
+https://github.com/t-o-k/Maxima-bezier/bezier_basis_functions.mac
+
+Copyright (c) 2020 Tor Olav Kristensen, http://subcube.com
+
+Use of this source code is governed by the GNU Lesser General Public License version 3, which can be found in the LICENSE file.
+
+*/
+
+kill(all);
+
+load("draw");
+load("bezier");
+
+set_draw_defaults(
+    xrange = [ 0, 1 ],
+    yrange = [ 0, 1 ],
+    xlabel = "s",
+    ylabel = "",
+    grid = true
+);
+
+degree_s: 3;
+define(bf_1a(s), basis_functions_1a(degree_s, s));
+
+
+draw2d(
+    color = red,
+    parametric(s, bf_1a(s)[1, 1], s, 0, 1),
+    color = green,
+    parametric(s, bf_1a(s)[1, 2], s, 0, 1),
+    color = blue,
+    parametric(s, bf_1a(s)[1, 3], s, 0, 1),
+    color = magenta,
+    parametric(s, bf_1a(s)[1, 4], s, 0, 1)
+);
+
+
+set_draw_defaults(
+    xrange = [ 0, 1 ],
+    yrange = [ 0, 1 ],
+    zrange = [ 0, 1 ],
+    cbrange = [ 0, 1 ],
+    colorbox = false,
+    xu_grid = 15,
+    yv_grid = 15,
+    xlabel = "u",
+    ylabel = "v",
+    zlabel = "",
+    color = blue,
+    grid = true,
+    color = gray,
+    wired_surface = true,
+    surface_hide = false,
+    enhanced3d = true,
+    view = [ 80, 10 ]
+);
+
+degree_u: 2;
+degree_v: 2;
+define(bf_2a(u, v), basis_functions_2a(degree_u, degree_v, u, v));
+
+
+bf_2a(u, v)[2, 1];
+
+draw3d(
+    title = "Basis function [2, 1]",
+    parametric_surface(
+        u,
+        v,
+        bf_2a(u, v)[2, 1],
+        u, 0, 1,
+        v, 0, 1
+    )
+);
+
+
+bf_2a(u, v)[2, 2];
+
+draw3d(
+    title = "Basis function [2, 2]",
+    parametric_surface(
+        u,
+        v,
+        bf_2a(u, v)[2, 2],
+        u, 0, 1,
+        v, 0, 1
+    )
+);
+
+
+bf_2a(u, v)[3, 3];
+
+draw3d(
+    title = "Basis function [3, 3]",
+    parametric_surface(
+        u,
+        v,
+        bf_2a(u, v)[3, 3],
+        u, 0, 1,
+        v, 0, 1
+    )
+);
